@@ -68,23 +68,15 @@ namespace viewer.Controllers
                 // Check the event type.
                 // Return the validation code if it's 
                 // a subscription validation request. 
-                if (false)
+                
+                if (IsCloudEvent(jsonContent))
                 {
-                    return await HandleValidation(jsonContent);
-                }
-                else if (EventTypeNotification)
-                {
-                    // Check to see if this is passed in using
-                    // the CloudEvents schema
-                    if (IsCloudEvent(jsonContent))
-                    {
-                        return await HandleCloudEvent(jsonContent);
-                    }
-
-                    return await HandleGridEvents(jsonContent);
+                    return await HandleCloudEvent(jsonContent);
                 }
 
-                return BadRequest();                
+                return await HandleGridEvents(jsonContent);
+
+                // return BadRequest();                
             }
         }
 
