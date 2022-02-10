@@ -135,21 +135,16 @@ namespace viewer.Controllers
 
         private async Task<IActionResult> HandleGridEvents(string jsonContent)
         {
-            var events = JArray.Parse(jsonContent);
-            foreach (var e in events)
-            {
-                // Invoke a method on the clients for 
-                // an event grid notiification.    
-                DateTime dateValue = new System.DateTime(2013, 5, 28, 10, 30, 15);                    
+            DateTime dateValue = new System.DateTime(2013, 5, 28, 10, 30, 15);                    
                 // var details = JsonConvert.DeserializeObject<GridEvent<dynamic>>(e.ToString());
-                await this._hubContext.Clients.All.SendAsync(
-                    "gridupdate",
-                    "testing_cloudapp_events",
-                    "testing_cloudapp_events",
-                    "testing_cloudapp_events",
-                    dateValue.ToLongTimeString(),
-                    e.ToString());
-            }
+            await this._hubContext.Clients.All.SendAsync(
+                "gridupdate",
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
+                dateValue.ToLongTimeString(),
+                jsonContent
+            );
 
             return Ok();
         }
@@ -158,14 +153,15 @@ namespace viewer.Controllers
         {
             // var details = JsonConvert.DeserializeObject<CloudEvent<dynamic>>(jsonContent);
             var eventData = JObject.Parse(jsonContent);
+            DateTime dateValue = new System.DateTime(2013, 5, 28, 10, 30, 15);   
 
             await this._hubContext.Clients.All.SendAsync(
                 "gridupdate",
                 "testing_cloudapp_events",
                 "testing_cloudapp_events",
                 "testing_cloudapp_events",
-                "testing_cloudapp_events",
-                eventData.ToString()
+                dateValue.ToLongTimeString(),
+                jsonContent
             );
 
             return Ok();
