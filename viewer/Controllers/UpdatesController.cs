@@ -58,6 +58,28 @@ namespace viewer.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                var jsonContent = await reader.ReadToEndAsync();
+
+                // Check the event type.
+                // Return the validation code if it's 
+                // a subscription validation request. 
+                
+                if (IsCloudEvent(jsonContent))
+                {
+                    return await HandleCloudEvent(jsonContent);
+                }
+
+                return await HandleGridEvents(jsonContent);
+
+                // return BadRequest();                
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post()
         {
