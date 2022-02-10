@@ -68,13 +68,15 @@ namespace viewer.Controllers
                 // Check the event type.
                 // Return the validation code if it's 
                 // a subscription validation request. 
-                
-                if (IsCloudEvent(jsonContent))
-                {
-                    return await HandleCloudEvent(jsonContent);
-                }
 
-                return await HandleGridEvents(jsonContent);
+                return await HandleCloudEvent(jsonContent);
+                
+                // if (IsCloudEvent(jsonContent))
+                // {
+                //     return await HandleCloudEvent(jsonContent);
+                // }
+
+                // return await HandleGridEvents(jsonContent);
 
                 // return BadRequest();                
             }
@@ -139,7 +141,7 @@ namespace viewer.Controllers
                 DateTime dateValue = new System.DateTime(2013, 5, 28, 10, 30, 15);                    
                 // var details = JsonConvert.DeserializeObject<GridEvent<dynamic>>(e.ToString());
                 await this._hubContext.Clients.All.SendAsync(
-                    "testing_cloudapp_events",
+                    "gridupdate",
                     "testing_cloudapp_events",
                     "testing_cloudapp_events",
                     "testing_cloudapp_events",
@@ -156,7 +158,7 @@ namespace viewer.Controllers
             var eventData = JObject.Parse(jsonContent);
 
             await this._hubContext.Clients.All.SendAsync(
-                "testing_cloudapp_events",
+                "gridupdate",
                 "testing_cloudapp_events",
                 "testing_cloudapp_events",
                 "testing_cloudapp_events",
