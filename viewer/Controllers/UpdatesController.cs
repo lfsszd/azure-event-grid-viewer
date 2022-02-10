@@ -139,10 +139,10 @@ namespace viewer.Controllers
                 // var details = JsonConvert.DeserializeObject<GridEvent<dynamic>>(e.ToString());
             await this._hubContext.Clients.All.SendAsync(
                 "gridupdate",
-                "testing_cloudapp_events",
-                "testing_cloudapp_events",
-                "testing_cloudapp_events",
-                "testing_cloudapp_events",
+                "",
+                "",
+                "",
+                "",
                 jsonContent
             );
 
@@ -152,15 +152,15 @@ namespace viewer.Controllers
         private async Task<IActionResult> HandleCloudEvent(string jsonContent)
         {
             // var details = JsonConvert.DeserializeObject<CloudEvent<dynamic>>(jsonContent);
-            var eventData = JObject.Parse(jsonContent);
+            // var eventData = JObject.Parse(jsonContent);
             // DateTime dateValue = new System.DateTime(2013, 5, 28, 10, 30, 15);   
 
             await this._hubContext.Clients.All.SendAsync(
                 "gridupdate",
-                "testing_cloudapp_events",
-                "testing_cloudapp_events",
-                "testing_cloudapp_events",
-                "testing_cloudapp_events",
+                "",
+                "",
+                "",
+                "",
                 jsonContent
             );
 
