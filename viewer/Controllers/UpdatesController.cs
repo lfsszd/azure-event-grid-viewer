@@ -93,12 +93,14 @@ namespace viewer.Controllers
                 // Return the validation code if it's 
                 // a subscription validation request. 
                 
-                if (IsCloudEvent(jsonContent))
-                {
-                    return await HandleCloudEvent(jsonContent);
-                }
+                // if (IsCloudEvent(jsonContent))
+                // {
+                //     return await HandleCloudEvent(jsonContent);
+                // }
 
-                return await HandleGridEvents(jsonContent);
+                // return await HandleGridEvents(jsonContent);
+
+                return await HandleCloudEvent(jsonContent);
 
                 // return BadRequest();                
             }
