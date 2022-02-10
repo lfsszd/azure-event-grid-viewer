@@ -68,7 +68,7 @@ namespace viewer.Controllers
                 // Check the event type.
                 // Return the validation code if it's 
                 // a subscription validation request. 
-                if (EventTypeSubcriptionValidation)
+                if (false)
                 {
                     return await HandleValidation(jsonContent);
                 }
@@ -98,12 +98,13 @@ namespace viewer.Controllers
                 JsonConvert.DeserializeObject<List<GridEvent<Dictionary<string, string>>>>(jsonContent)
                     .First();
 
+            DateTime dateValue = new System.DateTime(2013, 5, 28, 10, 30, 15);    
             await this._hubContext.Clients.All.SendAsync(
-                "gridupdate",
-                gridEvent.Id,
-                gridEvent.EventType,
-                gridEvent.Subject,
-                gridEvent.EventTime.ToLongTimeString(),
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
+                dateValue.ToLongTimeString(),
                 jsonContent.ToString());
 
             // Retrieve the validation code and echo back.
@@ -120,14 +121,15 @@ namespace viewer.Controllers
             foreach (var e in events)
             {
                 // Invoke a method on the clients for 
-                // an event grid notiification.                        
-                var details = JsonConvert.DeserializeObject<GridEvent<dynamic>>(e.ToString());
+                // an event grid notiification.    
+                DateTime dateValue = new System.DateTime(2013, 5, 28, 10, 30, 15);                    
+                // var details = JsonConvert.DeserializeObject<GridEvent<dynamic>>(e.ToString());
                 await this._hubContext.Clients.All.SendAsync(
-                    "gridupdate",
-                    details.Id,
-                    details.EventType,
-                    details.Subject,
-                    details.EventTime.ToLongTimeString(),
+                    "testing_cloudapp_events",
+                    "testing_cloudapp_events",
+                    "testing_cloudapp_events",
+                    "testing_cloudapp_events",
+                    dateValue.ToLongTimeString(),
                     e.ToString());
             }
 
@@ -136,15 +138,15 @@ namespace viewer.Controllers
 
         private async Task<IActionResult> HandleCloudEvent(string jsonContent)
         {
-            var details = JsonConvert.DeserializeObject<CloudEvent<dynamic>>(jsonContent);
+            // var details = JsonConvert.DeserializeObject<CloudEvent<dynamic>>(jsonContent);
             var eventData = JObject.Parse(jsonContent);
 
             await this._hubContext.Clients.All.SendAsync(
-                "gridupdate",
-                details.Id,
-                details.Type,
-                details.Subject,
-                details.Time,
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
+                "testing_cloudapp_events",
                 eventData.ToString()
             );
 
